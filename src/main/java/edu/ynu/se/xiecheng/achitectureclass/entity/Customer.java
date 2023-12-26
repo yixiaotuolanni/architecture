@@ -1,11 +1,12 @@
 package edu.ynu.se.xiecheng.achitectureclass.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -14,8 +15,12 @@ import javax.persistence.Entity;
 public class Customer extends User{
     @Column
     private String name;
-    @Column
-    private String email;
-    @Column
-    private String addr;
+
+    @OneToMany(
+            mappedBy = "customer",
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL
+    )
+    @JsonIgnoreProperties("customer")
+    private Set<Order> orders = new HashSet<>();
 }

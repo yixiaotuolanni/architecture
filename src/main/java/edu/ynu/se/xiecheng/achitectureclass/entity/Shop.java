@@ -8,6 +8,7 @@ import lombok.Setter;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -17,8 +18,25 @@ import java.util.Set;
 public class Shop extends LogicEntity {
     @Column
     private String name;
-    @Column
-    private Integer creditHours;
-    @Column
-    private String credit;
+    @OneToMany(
+            mappedBy = "shop",
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL
+    )
+    @JsonIgnoreProperties("shop")
+    private Set<ShopItem> shopItems = new HashSet<>();
+
+    @OneToMany(
+            mappedBy = "shop",
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL
+    )
+    @JsonIgnoreProperties("shop")
+    private Set<Order> orders = new HashSet<>();
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnoreProperties("shop")
+    private Business business;
+
+
 }

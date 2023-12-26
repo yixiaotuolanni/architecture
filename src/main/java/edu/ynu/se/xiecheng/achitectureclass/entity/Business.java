@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -21,4 +22,20 @@ public class Business extends User{
     private String email;
     @Column
     private String addr;
+
+    @OneToMany(
+            mappedBy = "business",
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL
+    )
+    @JsonIgnoreProperties("business")
+    private Set<Shop> shops = new HashSet<>();
+
+    @OneToMany(
+            mappedBy = "business",
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL
+    )
+    @JsonIgnoreProperties("business")
+    private Set<Item> items = new HashSet<>();
 }
