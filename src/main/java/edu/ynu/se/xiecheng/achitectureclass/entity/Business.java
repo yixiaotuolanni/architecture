@@ -18,10 +18,6 @@ import java.util.Set;
 public class Business extends User{
     @Column
     private String name;
-    @Column
-    private String email;
-    @Column
-    private String addr;
 
     @OneToMany(
             mappedBy = "business",
@@ -38,4 +34,29 @@ public class Business extends User{
     )
     @JsonIgnoreProperties("business")
     private Set<Item> items = new HashSet<>();
+
+    public Shop addShop(String shopName){
+        Shop shop = new Shop();
+        shop.setName(shopName);
+        shop.setBusiness(this);
+        shops.add(shop);
+        return shop;
+    }
+
+    public Item addItem(){
+        Item item = new Item();
+        item.setBusiness(this);
+        items.add(item);
+        return item;
+    }
+
+    public ShopItem addShopItem(Item item,Shop shop){
+        if (!(items.contains(item) && shops.contains(shop))){
+            return null;
+        }
+        ShopItem shopItem = new ShopItem();
+        shopItem.setItem(item);
+        shopItem.setShop(shop);
+        return shopItem;
+    }
 }
