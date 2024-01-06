@@ -23,4 +23,45 @@ public class Customer extends User{
     )
     @JsonIgnoreProperties("customer")
     private Set<Order> orders = new HashSet<>();
+
+    public Order addOrder(Shop shop){
+        Order order = new Order();
+        order.setCustomer(this);
+        order.setShop(shop);
+        order.setIsPayed(0);
+        order.setIsConfirmed(0);
+        orders.add(order);
+        return order;
+    }
+
+    public Set<Order> removeOrder(Order order){
+        if (!orders.contains(order)){
+            return null;
+        }
+        orders.remove(order);
+        return orders;
+    }
+    public LineItem addLineItem(Double amount,ShopItem shopItem){
+        Shop shop = shopItem.getShop();
+        Order order = null;
+        for (Order o: orders) {
+            if (o.getShop().equals(shop) && o.getIsPayed() == 0){
+                order = o;
+            }
+        }
+        if (order == null){
+            order = this.addOrder(shop);
+        }
+        return order.addLineItem(amount,shopItem);
+    }
+
+
+
+    public Order pay(Order order){
+        if (!orders.contains(order)){
+            return null;
+        }
+        order.setIsPayed(1);
+        return order;
+    }
 }
