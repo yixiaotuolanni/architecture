@@ -18,6 +18,8 @@ import java.util.Set;
 public class Shop extends LogicEntity {
     @Column
     private String name;
+    @Column
+    private String description;
     @OneToMany(
             mappedBy = "shop",
             fetch = FetchType.LAZY,

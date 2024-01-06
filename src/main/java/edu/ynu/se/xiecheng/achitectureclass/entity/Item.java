@@ -20,7 +20,8 @@ public class Item extends LogicEntity {
     private String name;
     @Column
     private Double price;
-
+    @Column
+    private String description;
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnoreProperties(value = {"item"})
     private Business business;

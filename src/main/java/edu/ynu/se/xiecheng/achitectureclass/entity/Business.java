@@ -35,17 +35,23 @@ public class Business extends User{
     @JsonIgnoreProperties("business")
     private Set<Item> items = new HashSet<>();
 
-    public Shop addShop(String shopName){
+    public Shop addShop(String shopName,String shopDescription){
         Shop shop = new Shop();
         shop.setName(shopName);
+        shop.setDescription(shopDescription);
         shop.setBusiness(this);
         shops.add(shop);
         return shop;
     }
 
-    public Item addItem(){
+    public Item addItem(String itemName, Double itemPrice, String itemDescription){
         Item item = new Item();
         item.setBusiness(this);
+
+        item.setName(itemName);
+        item.setPrice(itemPrice);
+        item.setDescription(itemDescription);
+
         items.add(item);
         return item;
     }
