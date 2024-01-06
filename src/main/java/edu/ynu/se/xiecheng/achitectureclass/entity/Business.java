@@ -34,6 +34,7 @@ public class Business extends User{
     @JsonIgnoreProperties("business")
     private Set<Item> items = new HashSet<>();
 
+
     public Shop addShop(String shopName,String shopDescription){
         Shop shop = new Shop();
         shop.setName(shopName);
@@ -60,8 +61,8 @@ public class Business extends User{
             return null;
         }
         ShopItem shopItem = new ShopItem();
-        shopItem.setItem(item);
-        shopItem.setShop(shop);
+        item.addShopItem(shopItem);
+        shop.addShopItem(shopItem);
         return shopItem;
     }
 

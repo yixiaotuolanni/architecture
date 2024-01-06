@@ -33,4 +33,10 @@ public class Item extends LogicEntity {
     )
     @JsonIgnoreProperties("item")
     private Set<ShopItem> shopItems = new HashSet<>();
+
+    public ShopItem addShopItem(ShopItem shopItem){
+        shopItem.setItem(this);
+        shopItems.add(shopItem);
+        return shopItem;
+    }
 }

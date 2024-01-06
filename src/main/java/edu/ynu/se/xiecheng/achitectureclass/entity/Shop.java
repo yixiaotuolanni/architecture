@@ -40,5 +40,9 @@ public class Shop extends LogicEntity {
     @JsonIgnoreProperties("shop")
     private Business business;
 
-
+    public ShopItem addShopItem(ShopItem shopItem){
+        shopItem.setShop(this);
+        shopItems.add(shopItem);
+        return shopItem;
+    }
 }
