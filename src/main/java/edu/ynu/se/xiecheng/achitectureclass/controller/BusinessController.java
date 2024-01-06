@@ -3,10 +3,7 @@ package edu.ynu.se.xiecheng.achitectureclass.controller;
 import edu.ynu.se.xiecheng.achitectureclass.Service.BusinessService;
 import edu.ynu.se.xiecheng.achitectureclass.common.controller.LogicController;
 import edu.ynu.se.xiecheng.achitectureclass.dao.BusinessDao;
-import edu.ynu.se.xiecheng.achitectureclass.entity.Business;
-import edu.ynu.se.xiecheng.achitectureclass.entity.Item;
-import edu.ynu.se.xiecheng.achitectureclass.entity.Shop;
-import edu.ynu.se.xiecheng.achitectureclass.entity.ShopItem;
+import edu.ynu.se.xiecheng.achitectureclass.entity.*;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.modelmapper.ModelMapper;
@@ -14,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.annotation.Resource;
+import java.util.Set;
 
 public class BusinessController extends LogicController<BusinessService, BusinessDao, Business, Long> {
 
@@ -46,5 +44,30 @@ public class BusinessController extends LogicController<BusinessService, Busines
                                 @ApiParam("商品号")Long itemId,
                                 @ApiParam("店铺号")Long shopId){
         return getService().addShopItem(businessId, itemId, shopId);
+    }
+    @ApiOperation("商家查找所有订单")
+    @GetMapping("/findAllOrders")
+    public Set<Order> findAllOrders(@ApiParam("商家号")Long businessId){
+        return getService().findAllOrders(businessId);
+    }
+    @ApiOperation("商家查找店铺订单")
+    @GetMapping("/findShopOrders")
+    public Set<Order> findShopOrders(@ApiParam("商家号")Long businessId,
+                                     @ApiParam("店铺号")Long shopId){
+        return getService().findShopOrders(businessId, shopId);
+    }
+    @ApiOperation("商家确认订单")
+    @GetMapping("/confirm")
+    public Order confirm(@ApiParam("商家号")Long businessId,
+                         @ApiParam("店铺号")Long shopId,
+                         @ApiParam("订单号") Long orderId){
+        return getService().confirm(businessId,shopId,orderId);
+    }
+    @ApiOperation("商家取消订单")
+    @GetMapping("/refund")
+    public Order refund(@ApiParam("商家号")Long businessId,
+                        @ApiParam("店铺号")Long shopId,
+                        @ApiParam("订单号") Long orderId){
+        return getService().refund(businessId, shopId, orderId);
     }
 }
