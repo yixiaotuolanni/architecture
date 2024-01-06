@@ -37,6 +37,7 @@ public class Customer extends User{
             return null;
         }
         orders.remove(order);
+        order.setIsDeleted(0);
         return orders;
     }
     public LineItem addLineItem(Double amount,ShopItem shopItem){
