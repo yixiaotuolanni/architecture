@@ -46,14 +46,12 @@ public class Order extends LogicEntity {
         lineItem.setShopItem(shopItem);
         lineItem.setOrder(this);
         this.lineItems.add(lineItem);
+        this.setTotalPrice(amount,shopItem);
         return lineItem;
     }
 
-    public Double setTotalPrice(){
-        this.totalPrice = 0.00;
-        for (LineItem lineItem : lineItems){
-            this.totalPrice += lineItem.getShopItem().getItem().getPrice() * lineItem.getAmount();
-        }
+    public Double setTotalPrice(Double amount,ShopItem shopItem){
+        this.totalPrice += shopItem.getItem().getPrice() * amount;
         return totalPrice;
     }
 }
