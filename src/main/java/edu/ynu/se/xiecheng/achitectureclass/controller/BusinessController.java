@@ -35,7 +35,7 @@ public class BusinessController extends LogicController<BusinessService, Busines
     }
 
     @ApiOperation("商家创建商品")
-    @GetMapping("/addShop")
+    @GetMapping("/addItem")
     public Item addItem(@ApiParam("商家号")Long businessId,
                         @ApiParam("商品名称")String itemName,
                         @ApiParam("商品价格")Double itemPrice,
@@ -44,7 +44,7 @@ public class BusinessController extends LogicController<BusinessService, Busines
     }
 
     @ApiOperation("商家上架商品")
-    @GetMapping("/addShop")
+    @GetMapping("/addShopItem")
     public ShopItem addShopItem(@ApiParam("商家号")Long businessId,
                                 @ApiParam("商品号")Long itemId,
                                 @ApiParam("店铺号")Long shopId){
