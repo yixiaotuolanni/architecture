@@ -16,9 +16,13 @@ import java.util.Set;
 @Where(clause = "is_deleted = 0")
 public class Order extends LogicEntity {
     @Column
-    private Double total;
-    @Column
-    private Integer status;
+    private Double totalPrice;
+    @Column(columnDefinition = "int default 0")
+    private Integer isPayed;
+    @Column(columnDefinition = "int default 0")
+    private Integer isConfirmed;
+    @Column(columnDefinition = "int default 0")
+    private Integer isRefunded;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnoreProperties(value = {"order"})
@@ -36,4 +40,20 @@ public class Order extends LogicEntity {
     @JsonIgnoreProperties("order")
     private Set<LineItem> lineItems = new HashSet<>();
 
+    public LineItem addLineItem(Double amount,ShopItem shopItem){
+        LineItem lineItem = new LineItem();
+        lineItem.setAmount(amount);
+        lineItem.setShopItem(shopItem);
+        lineItem.setOrder(this);
+        this.lineItems.add(lineItem);
+        return lineItem;
+    }
+
+    public Double setTotalPrice(){
+        this.totalPrice = 0.00;
+        for (LineItem lineItem : lineItems){
+            this.totalPrice += lineItem.getShopItem().getItem().getPrice() * lineItem.getAmount();
+        }
+        return totalPrice;
+    }
 }
