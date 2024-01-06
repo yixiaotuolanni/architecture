@@ -30,6 +30,7 @@ public class Customer extends User{
         order.setShop(shop);
         order.setIsPayed(0);
         order.setIsConfirmed(0);
+        order.setTotalPrice(0.00);
         orders.add(order);
         return order;
     }
