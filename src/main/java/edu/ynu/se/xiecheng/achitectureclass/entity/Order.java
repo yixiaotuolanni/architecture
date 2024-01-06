@@ -40,6 +40,13 @@ public class Order extends LogicEntity {
     @JsonIgnoreProperties("order")
     private Set<LineItem> lineItems = new HashSet<>();
 
+    public Order(){
+        this.isPayed = 0;
+        this.isConfirmed = 0;
+        this.isRefunded = 0;
+        this.totalPrice = 0.00;
+    }
+
     public LineItem addLineItem(Double amount,ShopItem shopItem){
         LineItem lineItem = new LineItem();
         lineItem.setAmount(amount);
