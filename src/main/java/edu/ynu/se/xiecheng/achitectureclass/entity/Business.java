@@ -1,15 +1,14 @@
 package edu.ynu.se.xiecheng.achitectureclass.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Getter
@@ -64,5 +63,34 @@ public class Business extends User{
         shopItem.setItem(item);
         shopItem.setShop(shop);
         return shopItem;
+    }
+
+    public Set<Order> findAllOrders(){
+        return shops.stream()
+                .flatMap(shop -> shop.getOrders().stream())
+                .collect(Collectors.toSet());
+    }
+
+    public Set<Order> findShopOrders(Shop shop){
+        if (!shops.contains(shop)){
+            return null;
+        }
+        return shop.getOrders();
+    }
+
+    public Order confirm(Shop shop,Order order){
+        if (!(shops.contains(shop) && shop.getOrders().contains(order))){
+            return null;
+        }
+        order.setIsConfirmed(1);
+        return order;
+    }
+
+    public Order refund(Shop shop,Order order){
+        if (!(shops.contains(shop) && shop.getOrders().contains(order))){
+            return null;
+        }
+        order.setIsRefunded(1);
+        return order;
     }
 }
