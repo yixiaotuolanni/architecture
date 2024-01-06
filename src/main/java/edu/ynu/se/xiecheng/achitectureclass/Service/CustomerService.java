@@ -5,9 +5,10 @@ import edu.ynu.se.xiecheng.achitectureclass.dao.CustomerDao;
 import edu.ynu.se.xiecheng.achitectureclass.dao.OrderDao;
 import edu.ynu.se.xiecheng.achitectureclass.dao.ShopItemDao;
 import edu.ynu.se.xiecheng.achitectureclass.entity.*;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-
+@Service
 public class CustomerService extends LogicService<CustomerDao, Customer,Long> {
     @Resource
     ShopItemDao shopItemDao;

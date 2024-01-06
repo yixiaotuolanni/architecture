@@ -7,11 +7,12 @@ import edu.ynu.se.xiecheng.achitectureclass.dao.OrderDao;
 import edu.ynu.se.xiecheng.achitectureclass.dao.ShopDao;
 import edu.ynu.se.xiecheng.achitectureclass.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.Set;
 import java.util.stream.Collectors;
-
+@Service
 public class BusinessService extends LogicService<BusinessDao, Business, Long> {
     @Resource
     private ItemDao itemDao;

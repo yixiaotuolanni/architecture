@@ -4,15 +4,20 @@ import edu.ynu.se.xiecheng.achitectureclass.Service.BusinessService;
 import edu.ynu.se.xiecheng.achitectureclass.common.controller.LogicController;
 import edu.ynu.se.xiecheng.achitectureclass.dao.BusinessDao;
 import edu.ynu.se.xiecheng.achitectureclass.entity.*;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.util.Set;
-
+@Api(tags = "商家实体的控制器")
+@RestController
+@RequestMapping("/business")
 public class BusinessController extends LogicController<BusinessService, BusinessDao, Business, Long> {
 
     @Resource
