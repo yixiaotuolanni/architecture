@@ -14,7 +14,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2WebMvc;
 
 @Configuration
 @EnableSwagger2WebMvc
-public class SwaggerConfig {
+public class SwaggerConfig{
     // 创建Docket存入容器，Docket代表一个接口文档
     @Bean
     public Docket webApiConfig(){
