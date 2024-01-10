@@ -1,6 +1,8 @@
 package edu.ynu.se.xiecheng.achitectureclass.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import edu.ynu.se.xiecheng.achitectureclass.common.entity.LogicEntity;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,10 +22,10 @@ public class LineItem extends LogicEntity {
     private Double amount;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnoreProperties(value = {"lineItems"})
+    @JsonBackReference
     private Order order;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnoreProperties(value = {"lineItems"})
+    @JsonManagedReference
     private ShopItem shopItem;
 }

@@ -1,7 +1,9 @@
 package edu.ynu.se.xiecheng.achitectureclass.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import edu.ynu.se.xiecheng.achitectureclass.common.entity.LogicEntity;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,8 +24,9 @@ public class Item extends LogicEntity {
     private Double price;
     @Column
     private String description;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnoreProperties(value = {"item"})
+    @JsonBackReference
     private Business business;
 
     @OneToMany(
@@ -31,7 +34,7 @@ public class Item extends LogicEntity {
             fetch = FetchType.LAZY,
             cascade = CascadeType.ALL
     )
-    @JsonIgnoreProperties("item")
+    @JsonBackReference
     private Set<ShopItem> shopItems = new HashSet<>();
 
     public ShopItem addShopItem(ShopItem shopItem){

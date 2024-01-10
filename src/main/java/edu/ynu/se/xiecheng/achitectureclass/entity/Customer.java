@@ -1,6 +1,7 @@
 package edu.ynu.se.xiecheng.achitectureclass.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,7 +13,7 @@ import java.util.Set;
 @Getter
 @Setter
 @DiscriminatorValue("1")
-public class Customer extends User{
+public class Customer extends User {
     @Column
     private String name;
 
@@ -21,10 +22,10 @@ public class Customer extends User{
             fetch = FetchType.LAZY,
             cascade = CascadeType.ALL
     )
-    @JsonIgnoreProperties("customer")
+    @JsonManagedReference
     private Set<Order> orders = new HashSet<>();
 
-    public Order addOrder(Shop shop){
+    public Order addOrder(Shop shop) {
         Order order = new Order();
         order.setCustomer(this);
         order.setShop(shop);
@@ -32,32 +33,33 @@ public class Customer extends User{
         return order;
     }
 
-    public Set<Order> removeOrder(Order order){
-        if (!orders.contains(order)){
+    public Set<Order> removeOrder(Order order) {
+        if (!orders.contains(order)) {
             return null;
         }
         orders.remove(order);
         order.setIsDeleted(0);
         return orders;
     }
-    public LineItem addLineItem(Double amount,ShopItem shopItem){
+
+    public LineItem addLineItem(Double amount, ShopItem shopItem) {
+
         Shop shop = shopItem.getShop();
         Order order = null;
-        for (Order o: orders) {
-            if (o.getShop().equals(shop) && o.getIsPayed() == 0){
+        for (Order o : orders) {
+            if (o.getShop().equals(shop) && o.getIsPayed() == 0) {
                 order = o;
             }
         }
-        if (order == null){
+        if (order == null) {
             order = this.addOrder(shop);
         }
-        return order.addLineItem(amount,shopItem);
+        return order.addLineItem(amount, shopItem);
     }
 
 
-
-    public Order pay(Order order){
-        if (!orders.contains(order)){
+    public Order pay(Order order) {
+        if (!orders.contains(order)) {
             return null;
         }
         order.setIsPayed(1);

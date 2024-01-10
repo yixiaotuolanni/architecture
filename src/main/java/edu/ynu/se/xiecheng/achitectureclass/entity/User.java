@@ -1,5 +1,6 @@
 package edu.ynu.se.xiecheng.achitectureclass.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import edu.ynu.se.xiecheng.achitectureclass.common.entity.LogicEntity;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,7 +19,11 @@ public abstract class User extends LogicEntity {
     @Column
     protected String name;
     @Column
+    protected String phoneNumber;
+    @Column
+    @JsonIgnore
     protected String password;
+    @JsonIgnore
     @Column(updatable = false, insertable = false)
     protected Integer type;
     /**
