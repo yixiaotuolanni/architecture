@@ -28,10 +28,17 @@ class DaoTests {
 
     @Test
     @Transactional
+    @Rollback(false)
     public void creatBusiness(){
         Business business = new Business();
         business.setName("xgy");
         business.setPassword("123456");
+        business.setPhoneNumber("13187878031");
+//        business.setIsDeleted(0);
+//        businessDao.save(business);
+//        Item item = business.addItem("薯片",5.00,"好吃的薯片");
+//        Shop shop = business.addShop("小卖铺","卖各种东西");
+//        business.addShopItem(item,shop);
         businessDao.save(business);
     }
 
@@ -49,7 +56,7 @@ class DaoTests {
     @Rollback(false)
     public void addShop(){
         Business business = businessDao.getReferenceById(9L);
-        business.addShop("小卖铺","卖各种东西");
+        business.addShop("小卖铺","","","卖各种东西");
         businessDao.save(business);
     }
 
