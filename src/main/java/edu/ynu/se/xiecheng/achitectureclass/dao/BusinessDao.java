@@ -4,4 +4,5 @@ import edu.ynu.se.xiecheng.achitectureclass.common.dao.LogicDAO;
 import edu.ynu.se.xiecheng.achitectureclass.entity.Business;
 
 public interface BusinessDao extends LogicDAO<Business,Long> {
+    Business findBusinessByPhoneNumberAndPassword(String phoneNumber,String password);
 }
